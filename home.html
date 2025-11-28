@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Actualizar ANIDEX</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-main: #050816;
+      --bg-card: rgba(10, 20, 40, 0.9);
+      --accent: #19f7ff;
+      --text-main: #f5f7ff;
+      --text-muted: #9ca3af;
+      --danger: #f97373;
+      --radius-xl: 20px;
+      --shadow-soft: 0 22px 40px rgba(0,0,0,0.5);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      font-family: "Space Grotesk", sans-serif;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(88,101,242,0.25) 0, transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(25,247,255,0.25) 0, transparent 55%),
+        var(--bg-main);
+      color: var(--text-main);
+      padding: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .frame {
+      width: 100%;
+      max-width: 900px;
+      background: linear-gradient(135deg, rgba(25,247,255,0.15), rgba(88,101,242,0.06));
+      padding: 2px;
+      border-radius: 26px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border-radius: 24px;
+      padding: 28px 26px;
+      border: 1px solid rgba(255,255,255,0.04);
+      backdrop-filter: blur(14px);
+    }
+
+    header {
+      border-bottom: 1px solid rgba(148,163,184,0.22);
+      padding-bottom: 18px;
+      margin-bottom: 20px;
+    }
+
+    .title-pill {
+      font-size: 0.7rem;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(25,247,255,0.09);
+      border: 1px solid rgba(25,247,255,0.5);
+      color: var(--accent);
+      display: inline-block;
+      margin-bottom: 6px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: clamp(1.6rem, 2vw, 2rem);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+    }
+
+    .subtitle {
+      margin-top: 6px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .steps {
+      margin-top: 22px;
+      padding: 16px 18px;
+      border-radius: var(--radius-xl);
+      background: rgba(15,23,42,0.65);
+      border: 1px solid rgba(148,163,184,0.3);
+    }
+
+    .steps-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      align-items: center;
+    }
+
+    .steps-header h2 {
+      font-size: 1rem;
+      text-transform: uppercase;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+    }
+
+    .badge-version {
+      font-size: 0.75rem;
+      border-radius: 999px;
+      padding: 3px 10px;
+      border: 1px dashed rgba(148,163,184,0.6);
+      background: rgba(15,23,42,0.6);
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    ol {
+      list-style: none;
+      counter-reset: pasos;
+      display: grid;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    li {
+      counter-increment: pasos;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 14px;
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(15,23,42,0.85);
+      border: 1px solid rgba(51,65,85,0.8);
+    }
+
+    li::before {
+      content: counter(pasos);
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 10%, #fff 0, #19f7ff 44%, #2563eb 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 700;
+      color: #020617;
+    }
+
+    li span {
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px dashed rgba(25,247,255,0.5);
+    }
+
+    a:hover {
+      color: #a5f3fc;
+      border-color: rgba(165,243,252,0.9);
+    }
+
+    /* ---------------------- */
+    /*    BLOQUE IMPORTANTE   */
+    /* ---------------------- */
+
+    .warning {
+      margin-top: 26px;
+      border-radius: 18px;
+      padding: 20px;
+      background: rgba(255, 60, 60, 0.18);      /* rojo suave */
+      border: 2px solid rgba(255, 90, 90, 1);   /* borde rojo */
+      display: flex;
+      gap: 16px;
+      box-shadow: 0 0 22px rgba(255, 80, 80, 0.4);
+    }
+
+    .warning-icon {
+      font-size: 2.4rem;
+      line-height: 1;
+    }
+
+    .warning-body h3 {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--danger);
+      margin-bottom: 8px;
+    }
+
+    .warning-body p {
+      font-size: 0.92rem;
+      line-height: 1.45;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+
+    footer {
+      margin-top: 20px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(30,64,175,0.5);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .chip {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.6);
+      background: rgba(15,23,42,0.85);
+    }
+  </style>
+</head>
+
+<body>
+  <main class="frame">
+    <section class="card">
+      <header>
+        <div class="title-pill">Guía oficial</div>
+        <h1>Actualizar ANIDEX</h1>
+        <p class="subtitle">
+          Sigue estos pasos para añadir el botón <strong>“Hora”</strong> dentro de la APP Opciones.
+        </p>
+      </header>
+
+      <div class="steps">
+        <div class="steps-header">
+          <h2>Pasos para actualizar</h2>
+          <div class="badge-version">USB · Actualización rápida</div>
+        </div>
+
+        <ol>
+          <li>
+            <span>
+              Descarga el siguiente archivo:
+              <a href="https://drive.google.com/file/d/1e08hit0-tbZPp6CYIn6vcs_D4o6-6p49/view?usp=drive_link" target="_blank">
+                https://drive.google.com/…
+              </a>
+            </span>
+          </li>
+
+          <li><span>Descomprime el contenido del <strong>.rar</strong> en un USB vacío.</span></li>
+
+          <li><span>Asegúrate de que el USB únicamente contiene la carpeta <strong>“anidex”</strong>.</span></li>
+
+          <li><span>Accede a la APP <strong>“Actualizar”</strong> dentro de la Anidex.</span></li>
+
+          <li><span>Introduce el USB en uno de los puertos de la derecha y pulsa <strong>Actualizar</strong>.</span></li>
+
+          <li><span>Al reiniciar, en la APP <strong>“Opciones”</strong> aparecerá el botón <strong>“Hora”</strong>.</span></li>
+        </ol>
+      </div>
+
+      <!-- BLOQUE IMPORTANTE -->
+      <div class="warning">
+        <div class="warning-icon">⚠️</div>
+
+        <div class="warning-body">
+          <h3>IMPORTANTE</h3>
+
+          <p>
+            Dependiendo del USB utilizado, puede tardar más o menos en detectarse dentro del sistema operativo.
+          </p>
+
+          <p>
+            Si al pulsar actualizar te da error, prueba varias veces.  
+            Si sigue fallando, cambia el USB de puerto, entra y sal de la app "Actualizar" y vuelve a intentarlo.  
+            Si continúa dando error, prueba con otro USB distinto.
+          </p>
+        </div>
+      </div>
+
+      <footer>
+        <span>ANIDEX · Actualización por USB</span>
+        <span class="chip">Hang Data · DIY Edition</span>
+      </footer>
+    </section>
+  </main>
+</body>
+</html>
